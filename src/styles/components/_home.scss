@@ -12,14 +12,20 @@
   color: var.$color-light;
   background-color: var.$color-dark;
 
+  &__heading {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
   &__subtitle {
     font-size: fct.px-to-rem(24);
-    color: var.$color-yellow;
+    color: var.$color-light;
   }
 
   &__title {
     font-size: fct.px-to-rem(64);
-    text-align: center;
 
     @include mx.respond-below(small) {
       font-size: fct.px-to-rem(40);
