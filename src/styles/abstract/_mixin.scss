@@ -1,0 +1,15 @@
+@use 'sass:map';
+@use './variables' as var;
+
+@mixin flex-center($flex-direction: column) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: $flex-direction;
+}
+
+@mixin respond-below($size) {
+  @media screen and (max-width: map.get(var.$breakpoints, $size)) {
+    @content;
+  }
+}

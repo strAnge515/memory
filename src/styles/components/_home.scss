@@ -1,0 +1,51 @@
+@use '../abstract/variables' as var;
+@use '../abstract/functions' as fct;
+@use '../abstract/mixin' as mx;
+
+.home {
+  @include mx.flex-center;
+  position: relative;
+  overflow: hidden;
+  gap: 24px;
+  min-height: 100vh;
+  padding: 24px;
+  color: var.$color-light;
+  background-color: var.$color-dark;
+
+  &__subtitle {
+    font-size: fct.px-to-rem(24);
+    color: var.$color-yellow;
+  }
+
+  &__title {
+    font-size: fct.px-to-rem(64);
+    text-align: center;
+
+    @include mx.respond-below(small) {
+      font-size: fct.px-to-rem(40);
+    }
+  }
+
+  &__controller {
+    position: absolute;
+    left: -30px;
+    bottom: 80px;
+    width: 414px;
+    aspect-ratio: 414 / 301;
+    background-color: var.$color-yellow;
+    mask: url('/img/icons/controller.svg') no-repeat center / contain;
+    opacity: 0.05;
+    rotate: 35deg;
+    pointer-events: none;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(37deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(41deg);
+  }
+}

@@ -1,0 +1,8 @@
+@use '../abstract/variables' as var;
+
+body {
+  min-height: 100vh;
+  font-family: var.$font-main;
+  color: var.$color-dark;
+  background-color: var.$color-light;
+}
