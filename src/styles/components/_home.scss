@@ -43,15 +43,16 @@
     opacity: 0.05;
     rotate: 35deg;
     pointer-events: none;
+    animation: float 3s ease-in-out infinite;
   }
 }
 
 @keyframes float {
   0%,
   100% {
-    transform: translateY(0) rotate(37deg);
+    transform: translateY(0);
   }
   50% {
-    transform: translateY(-20px) rotate(41deg);
+    transform: translateY(-20px) rotate(20deg);
   }
 }
