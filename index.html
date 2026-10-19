@@ -25,7 +25,7 @@
       <section id="settings" class="settings is-hidden">
         <h1 class="settings__title">Settings</h1>
 
-        <form class="settings__form">
+        <form class="settings__form" id="settings-form">
           <div class="settings__options">
             <fieldset class="settings__group">
               <legend>Game themes</legend>
@@ -52,10 +52,10 @@
             <div class="settings__preview-img"></div>
 
             <div class="settings__summary">
-              <span class="settings__chosen">Theme</span>
-              <span class="settings__chosen">Player</span>
-              <span class="settings__chosen">Board size</span>
-              <button class="btn btn--start" type="submit" disabled>
+              <span class="settings__chosen" data-group="theme">Theme</span>
+              <span class="settings__chosen" data-group="player">Player</span>
+              <span class="settings__chosen" data-group="size">Board size</span>
+              <button id="game-start-button" class="btn btn--start" type="submit" disabled>
                 <img src="/img/icons/start.svg" alt="" />
                 <span>Start</span>
               </button>
