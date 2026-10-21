@@ -1,5 +1,18 @@
 import './styles/main.scss';
 
+interface Settings {
+  theme: string; 
+  player: string; 
+  size: string;
+}
+
+const settings:Settings = {
+  theme: "", 
+  player: "", 
+  size:""
+}
+
+
 init();
 
 function init(): void {
@@ -25,7 +38,8 @@ function showView(id: string): void {
 function initSettingsForm(): void {
   const settingsForm = document.getElementById('settings-form');
   settingsForm?.addEventListener('change', (event) => {
-    const field = event.target as HTMLInputElement;
+    const field = event.target as HTMLInputElement ;
+    settings[field.name as keyof Settings] = field.value;
     updateGameBar(field.name, field.value);
     enableGameButton();
   });
