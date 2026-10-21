@@ -1,0 +1,40 @@
+@use '../abstract/variables' as var;
+@use '../abstract/functions' as fct;
+@use '../abstract/mixin' as mx;
+
+.game {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px;
+
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  &__scores {
+    display: flex;
+    gap: 24px;
+  }
+
+  &__score {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: fct.px-to-rem(20);
+    font-weight: 700;
+  }
+
+  &__current {
+    font-size: fct.px-to-rem(20);
+  }
+
+  &__board {
+    display: grid;
+    gap: 16px;
+  }
+}

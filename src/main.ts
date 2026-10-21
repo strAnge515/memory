@@ -44,6 +44,10 @@ function initSettingsForm(): void {
       changeThemePicture(field.value);
     }
   });
+  settingsForm?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    showView('game');
+  });
 }
 
 function updateGameBar(name: string, value: string): void {
