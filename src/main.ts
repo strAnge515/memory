@@ -1,4 +1,5 @@
 import './styles/main.scss';
+import { getCardTemplate } from './templates';
 
 interface Settings {
   theme: string;
@@ -18,6 +19,7 @@ init();
 function init(): void {
   initPlaybutton();
   initSettingsForm();
+  initBoard();
 }
 
 /** Opens the settings view when the play button is clicked. */
@@ -36,22 +38,29 @@ function showView(id: string): void {
   });
 }
 
-/** Saves the chosen settings on change and starts the game on submit. */
+/** Registers the change and submit listeners of the settings form. */
 function initSettingsForm(): void {
   const settingsForm = document.getElementById('settings-form');
-  settingsForm?.addEventListener('change', (event) => {
-    const field = event.target as HTMLInputElement;
-    settings[field.name as keyof Settings] = field.value;
-    updateGameBar(field.name, field.value);
-    enableGameButton();
-    if (field.name === 'theme') {
-      changeThemePicture(field.value);
-    }
-  });
-  settingsForm?.addEventListener('submit', (event) => {
-    event.preventDefault();
-    showView('game');
-  });
+  settingsForm?.addEventListener('change', handleSettingChange);
+  settingsForm?.addEventListener('submit', handleSettingsSubmit);
+}
+
+/** Saves the changed setting and updates the settings view. */
+function handleSettingChange(event: Event): void {
+  const field = event.target as HTMLInputElement;
+  settings[field.name as keyof Settings] = field.value;
+  updateGameBar(field.name, field.value);
+  enableGameButton();
+  if (field.name === 'theme') {
+    changeThemePicture(field.value);
+  }
+}
+
+/** Switches to the game view and starts a new game. */
+function handleSettingsSubmit(event: Event): void {
+  event.preventDefault();
+  showView('game');
+  startGame();
 }
 
 /** Shows the chosen value in the game bar and marks it as selected. */
@@ -99,12 +108,38 @@ function buildCardPairs(pairCount: number): number[] {
 
 /** Shuffles the cards randomly using the Fisher-Yates algorithm. */
 function shuffleCards(cards: number[]): number[] {
-  for (let i = cards.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [cards[i], cards[j]] = [cards[j], cards[i]];
+  for (let currentIndex = cards.length - 1; currentIndex > 0; currentIndex--) {
+    const randomIndex = Math.floor(Math.random() * (currentIndex + 1));
+    [cards[currentIndex], cards[randomIndex]] = [cards[randomIndex], cards[currentIndex]];
   }
 
   return cards;
+}
+
+/** Builds and shuffles the cards for the chosen size and renders the board. */
+function startGame(): void {
+  const cards = shuffleCards(buildCardPairs(getPairCount(settings.size)));
+  renderBoard(cards);
+}
+
+/** Renders all cards into the game board. */
+function renderBoard(cards: number[]): void {
+  const board = document.getElementById('game-board') as HTMLElement;
+  board.innerHTML = '';
+  board.dataset.size = settings.size;
+
+  cards.forEach((cardId) => {
+    board.innerHTML += getCardTemplate(settings.theme, cardId);
+  });
+}
+
+/** Flips a card when it is clicked. */
+function initBoard(): void {
+  const board = document.getElementById('game-board');
+  board?.addEventListener('click', (event) => {
+    const card = (event.target as HTMLElement).closest('.card');
+    card?.classList.add('is-flipped');
+  });
 }
 
 

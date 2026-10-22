@@ -35,6 +35,13 @@
 
   &__board {
     display: grid;
+    grid-template-columns: repeat(4, minmax(0, 140px));
+    justify-content: center;
     gap: 16px;
+
+    &[data-size='4x6'],
+    &[data-size='6x6'] {
+      grid-template-columns: repeat(6, minmax(0, 140px));
+    }
   }
 }
