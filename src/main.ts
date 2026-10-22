@@ -14,11 +14,13 @@ const settings: Settings = {
 
 init();
 
+/** Initializes the app and registers all event listeners. */
 function init(): void {
   initPlaybutton();
   initSettingsForm();
 }
 
+/** Opens the settings view when the play button is clicked. */
 function initPlaybutton(): void {
   const playButton = document.getElementById('play-button');
   if (playButton) {
@@ -26,6 +28,7 @@ function initPlaybutton(): void {
   }
 }
 
+/** Shows the section with the given id and hides all other sections. */
 function showView(id: string): void {
   const views = document.querySelectorAll<HTMLElement>('main > section');
   views.forEach((view) => {
@@ -33,6 +36,7 @@ function showView(id: string): void {
   });
 }
 
+/** Saves the chosen settings on change and starts the game on submit. */
 function initSettingsForm(): void {
   const settingsForm = document.getElementById('settings-form');
   settingsForm?.addEventListener('change', (event) => {
@@ -50,6 +54,7 @@ function initSettingsForm(): void {
   });
 }
 
+/** Shows the chosen value in the game bar and marks it as selected. */
 function updateGameBar(name: string, value: string): void {
   const chosenSpan = document.querySelector(`[data-group="${name}"]`);
 
@@ -59,6 +64,7 @@ function updateGameBar(name: string, value: string): void {
   }
 }
 
+/** Enables the game start button once all three settings are chosen. */
 function enableGameButton(): void {
   const gameButton = document.getElementById('game-start-button');
   const chosen = document.querySelectorAll('.is-selected');
@@ -67,7 +73,39 @@ function enableGameButton(): void {
   }
 }
 
+/** Shows the preview picture of the chosen theme. */
 function changeThemePicture(theme: string): void {
   const themePicture = document.getElementById('theme-picture') as HTMLImageElement;
   themePicture.src = `${import.meta.env.BASE_URL}img/themes/${theme}/preview.svg`;
 }
+
+/** Calculates the number of card pairs from the board size (e.g. "4x6"). */
+function getPairCount(size: string): number {
+  const fieldSize = size.split('x').map(Number);
+  return (fieldSize[0] * fieldSize[1]) / 2;
+}
+
+/** Creates an array in which every card number appears twice. */
+function buildCardPairs(pairCount: number): number[] {
+  const cards: number[] = [];
+
+  for (let i = 1; i <= pairCount; i++) {
+    cards.push(i);
+    cards.push(i);
+  }
+
+  return cards;
+}
+
+/** Shuffles the cards randomly using the Fisher-Yates algorithm. */
+function shuffleCards(cards: number[]): number[] {
+  for (let i = cards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [cards[i], cards[j]] = [cards[j], cards[i]];
+  }
+
+  return cards;
+}
+
+
+
