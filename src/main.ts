@@ -13,6 +13,12 @@ const settings: Settings = {
   size: '',
 };
 
+const FLIP_BACK_DELAY_MS: number = 1000;
+const CARDS_PER_PAIR: number = 2;
+const SETTINGS_COUNT: number = 3;
+
+const flippedCards: HTMLElement[] = [];
+
 init();
 
 /** Initializes the app and registers all event listeners. */
@@ -77,7 +83,7 @@ function updateGameBar(name: string, value: string): void {
 function enableGameButton(): void {
   const gameButton = document.getElementById('game-start-button');
   const chosen = document.querySelectorAll('.is-selected');
-  if (chosen.length === 3) {
+  if (chosen.length === SETTINGS_COUNT) {
     gameButton?.removeAttribute('disabled');
   }
 }
@@ -91,7 +97,7 @@ function changeThemePicture(theme: string): void {
 /** Calculates the number of card pairs from the board size (e.g. "4x6"). */
 function getPairCount(size: string): number {
   const fieldSize = size.split('x').map(Number);
-  return (fieldSize[0] * fieldSize[1]) / 2;
+  return (fieldSize[0] * fieldSize[1]) / CARDS_PER_PAIR;
 }
 
 /** Creates an array in which every card number appears twice. */
@@ -133,14 +139,41 @@ function renderBoard(cards: number[]): void {
   });
 }
 
-/** Flips a card when it is clicked. */
+/** Registers the click listener of the game board. */
 function initBoard(): void {
   const board = document.getElementById('game-board');
-  board?.addEventListener('click', (event) => {
-    const card = (event.target as HTMLElement).closest('.card');
-    card?.classList.add('is-flipped');
-  });
+  board?.addEventListener('click', handleCardClick);
 }
 
+/** Flips the clicked card and checks for a match once two cards are open. */
+function handleCardClick(event: Event): void {
+  const card = (event.target as HTMLElement).closest('.card') as HTMLElement | null;
+  if (!card || card.classList.contains('is-flipped') || flippedCards.length === CARDS_PER_PAIR) {
+    return;
+  }
+  card.classList.add('is-flipped');
+  flippedCards.push(card);
+  if (flippedCards.length === CARDS_PER_PAIR) {
+    checkForMatch();
+  }
+}
 
+/** Checks if the two open cards are the same and flips them back if not. */
+function checkForMatch(): void {
+  const firstCard = flippedCards[0];
+  const secondCard = flippedCards[1];
+  const isSame = firstCard.dataset.cardId === secondCard.dataset.cardId;
+  if (isSame) {
+    flippedCards.length = 0;
+  } else {
+    setTimeout(flipCardsBack, FLIP_BACK_DELAY_MS);
+  }
+}
 
+/** Flips the open cards back and empties the array. */
+function flipCardsBack(): void {
+  flippedCards.forEach((card) => {
+    card.classList.remove('is-flipped');
+  });
+  flippedCards.length = 0;
+}
