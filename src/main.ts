@@ -1,16 +1,34 @@
 import './styles/main.scss';
 import { getCardTemplate } from './templates';
 
+type PlayColor = 'orange' | 'blue';
+
 interface Settings {
   theme: string;
   player: string;
   size: string;
 }
 
+interface GameState {
+  currentPlayer: PlayColor;
+  playerScores: {
+    orange: number;
+    blue: number;
+  };
+}
+
 const settings: Settings = {
   theme: '',
   player: '',
   size: '',
+};
+
+const gameState: GameState = {
+  currentPlayer: 'orange',
+  playerScores: {
+    orange: 0,
+    blue: 0,
+  },
 };
 
 const FLIP_BACK_DELAY_MS: number = 1000;
@@ -125,6 +143,8 @@ function shuffleCards(cards: number[]): number[] {
 /** Builds and shuffles the cards for the chosen size and renders the board. */
 function startGame(): void {
   const cards = shuffleCards(buildCardPairs(getPairCount(settings.size)));
+  resetGameState();
+  updateScoreBoard();
   renderBoard(cards);
 }
 
@@ -176,4 +196,30 @@ function flipCardsBack(): void {
     card.classList.remove('is-flipped');
   });
   flippedCards.length = 0;
+}
+
+/** Sets the chosen player as starting player and resets both scores. */
+function resetGameState(): void {
+  gameState.currentPlayer = settings.player as PlayColor;
+  gameState.playerScores.orange = 0;
+  gameState.playerScores.blue = 0;
+}
+
+/** Shows both scores and the current player above the board. */
+function updateScoreBoard(): void {
+  const scoreOrange = document.getElementById('score-orange') as HTMLElement;
+  const scoreBlue = document.getElementById('score-blue') as HTMLElement;
+  const currentPlayer = document.getElementById('current-player') as HTMLElement;
+
+  scoreOrange.textContent = String(gameState.playerScores.orange);
+  scoreBlue.textContent = String(gameState.playerScores.blue);
+  currentPlayer.textContent = gameState.currentPlayer;
+}
+
+function addPoint(): void {
+
+}
+
+function switchPlayer(): void {
+
 }
