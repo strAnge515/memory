@@ -185,8 +185,10 @@ function checkForMatch(): void {
   const isSame = firstCard.dataset.cardId === secondCard.dataset.cardId;
   if (isSame) {
     flippedCards.length = 0;
+    addPoint();
   } else {
     setTimeout(flipCardsBack, FLIP_BACK_DELAY_MS);
+    switchPlayer();
   }
 }
 
@@ -216,10 +218,14 @@ function updateScoreBoard(): void {
   currentPlayer.textContent = gameState.currentPlayer;
 }
 
+/** Adds the point to the current player. */
 function addPoint(): void {
-
+  gameState.playerScores[gameState.currentPlayer]++;
+  updateScoreBoard();
 }
 
+/** Switches to the other player and updates the score board. */
 function switchPlayer(): void {
-
+  gameState.currentPlayer = gameState.currentPlayer === 'orange' ? 'blue' : 'orange';
+  updateScoreBoard();
 }
