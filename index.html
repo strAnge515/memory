@@ -67,29 +67,31 @@
       </section>
 
       <section id="game" class="game is-hidden">
-        <header class="game__header">
-          <div class="game__scores">
-            <span class="game__score game__score--blue">
-              <img src="/img/icons/chess_pawn.svg" alt="" />
-              Blue <span id="score-blue">0</span>
-            </span>
-            <span class="game__score game__score--orange">
-              <img src="/img/icons/chess_pawn.svg" alt="" />
-              Orange <span id="score-orange">0</span>
-            </span>
-          </div>
+        <div class="game__content">
+          <header class="game__header">
+            <div class="game__scores">
+              <span class="game__score game__score--blue">
+                <img src="/img/icons/chess_pawn.svg" alt="" />
+                Blue <span id="score-blue">0</span>
+              </span>
+              <span class="game__score game__score--orange">
+                <img src="/img/icons/chess_pawn.svg" alt="" />
+                Orange <span id="score-orange">0</span>
+              </span>
+            </div>
 
-          <p class="game__current">
-            Current player: <span id="current-player"></span>
-          </p>
+            <p class="game__current">
+              Current player: <span id="current-player" class="game__player-badge" role="img"></span>
+            </p>
 
-          <button id="exit-button" class="btn btn--exit" type="button">
-            <img src="/img/icons/exit.svg" alt="" />
-            <span>Exit game</span>
-          </button>
-        </header>
+            <button id="exit-button" class="btn btn--exit" type="button">
+              <img src="/img/icons/exit.svg" alt="" />
+              <span>Exit game</span>
+            </button>
+          </header>
 
-        <div id="game-board" class="game__board"></div>
+          <div id="game-board" class="game__board"></div>
+        </div>
       </section>
     </main>
   </body>

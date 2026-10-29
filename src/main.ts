@@ -144,8 +144,15 @@ function shuffleCards(cards: number[]): number[] {
 function startGame(): void {
   const cards = shuffleCards(buildCardPairs(getPairCount(settings.size)));
   resetGameState();
+  setGameTheme();
   updateScoreBoard();
   renderBoard(cards);
+}
+
+/** Saves the chosen theme on the game section so the styles can react to it. */
+function setGameTheme(): void {
+  const game = document.getElementById('game') as HTMLElement;
+  game.dataset.theme = settings.theme;
 }
 
 /** Renders all cards into the game board. */
@@ -215,7 +222,8 @@ function updateScoreBoard(): void {
 
   scoreOrange.textContent = String(gameState.playerScores.orange);
   scoreBlue.textContent = String(gameState.playerScores.blue);
-  currentPlayer.textContent = gameState.currentPlayer;
+  currentPlayer.dataset.player = gameState.currentPlayer;
+  currentPlayer.setAttribute('aria-label', gameState.currentPlayer);
 }
 
 /** Adds the point to the current player. */
@@ -228,4 +236,11 @@ function addPoint(): void {
 function switchPlayer(): void {
   gameState.currentPlayer = gameState.currentPlayer === 'orange' ? 'blue' : 'orange';
   updateScoreBoard();
+}
+
+/** Checks if all cards on the board are flipped. */
+function isGameOver(): boolean {
+  const allCards = document.querySelectorAll('.card');
+  const flippedCardsOnBoard = document.querySelectorAll('.card.is-flipped');
+  return allCards.length === flippedCardsOnBoard.length;
 }
