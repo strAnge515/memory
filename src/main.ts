@@ -44,6 +44,7 @@ function init(): void {
   initPlaybutton();
   initSettingsForm();
   initBoard();
+  initDialogButtons();
 }
 
 /** Opens the settings view when the play button is clicked. */
@@ -149,10 +150,14 @@ function startGame(): void {
   renderBoard(cards);
 }
 
-/** Saves the chosen theme on the game section so the styles can react to it. */
+/** Saves the chosen theme on the body so all styles can react to it. */
 function setGameTheme(): void {
-  const game = document.getElementById('game') as HTMLElement;
-  game.dataset.theme = settings.theme;
+  document.body.dataset.theme = settings.theme;
+}
+
+/** Removes the theme from the body when the game is left. */
+function removeGameTheme(): void {
+  delete document.body.dataset.theme;
 }
 
 /** Renders all cards into the game board. */
@@ -242,5 +247,36 @@ function switchPlayer(): void {
 function isGameOver(): boolean {
   const allCards = document.querySelectorAll('.card');
   const flippedCardsOnBoard = document.querySelectorAll('.card.is-flipped');
+
   return allCards.length === flippedCardsOnBoard.length;
+}
+
+/** Registers the click listeners of the exit button and the exit dialog. */
+function initDialogButtons(): void {
+  const headerExitButton = document.getElementById('exit-button');
+  const backToGameButton = document.getElementById('back-to-game');
+  const dialogExitButton = document.getElementById('exit-game');
+
+  headerExitButton?.addEventListener('click', openExitDialog);
+  backToGameButton?.addEventListener('click', closeExitDialog);
+  dialogExitButton?.addEventListener('click', handleExitGame);
+}
+
+/** Opens the exit dialog. */
+function openExitDialog(): void {
+  const exitDialog = document.getElementById('exit-dialog') as HTMLDialogElement;
+  exitDialog.showModal();
+}
+
+/** Closes the exit dialog. */
+function closeExitDialog(): void {
+  const exitDialog = document.getElementById('exit-dialog') as HTMLDialogElement;
+  exitDialog.close();
+}
+
+/** Closes the exit dialog and returns to the settings view. */
+function handleExitGame(): void {
+  closeExitDialog();
+  removeGameTheme();
+  showView('settings');
 }

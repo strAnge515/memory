@@ -6,7 +6,7 @@
   min-height: 100vh;
   background-color: var.$color-light;
 
-  &[data-theme='code-vibes'] {
+  [data-theme='code-vibes'] & {
     color: var.$color-light;
     background-color: var.$color-dark;
   }
@@ -56,27 +56,27 @@
     &[data-player='orange'] {
       background-color: var.$color-player-orange;
     }
-  }
 
-  &:not([data-theme='code-vibes']) &__player-badge {
-    @include mx.flex-center;
-    width: auto;
-    height: auto;
-    padding: 4px 8px;
-    border-radius: 8px;
-    background-color: var.$color-player-blue-dark;
-    mask: none;
+    body:not([data-theme='code-vibes']) & {
+      @include mx.flex-center;
+      width: auto;
+      height: auto;
+      padding: 4px 8px;
+      border-radius: 8px;
+      background-color: var.$color-player-blue-dark;
+      mask: none;
 
-    &[data-player='orange'] {
-      background-color: var.$color-player-orange-dark;
-    }
+      &[data-player='orange'] {
+        background-color: var.$color-player-orange-dark;
+      }
 
-    &::before {
-      content: '';
-      width: 25px;
-      height: 32px;
-      background-color: var.$color-light;
-      mask: url('/img/icons/chess_pawn.svg') no-repeat center / contain;
+      &::before {
+        content: '';
+        width: 25px;
+        height: 32px;
+        background-color: var.$color-light;
+        mask: url('/img/icons/chess_pawn.svg') no-repeat center / contain;
+      }
     }
   }
 
