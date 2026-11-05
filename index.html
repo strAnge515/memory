@@ -50,7 +50,7 @@
 
           <div class="settings__preview">
             <div class="settings__preview-img">
-              <img id="theme-picture" src="/img/themes/code-vibes/preview.svg" alt="Vorschau des gewählten Themes">
+              <img id="theme-picture" src="/img/themes/code-vibes/preview.svg" alt="Vorschau des gewählten Themes" />
             </div>
 
             <div class="settings__summary">
@@ -80,9 +80,7 @@
               </span>
             </div>
 
-            <p class="game__current">
-              Current player: <span id="current-player" class="game__player-badge" role="img"></span>
-            </p>
+            <p class="game__current">Current player: <span id="current-player" class="game__player-badge" role="img"></span></p>
 
             <button id="exit-button" class="btn btn--exit" type="button">
               <img src="/img/icons/exit.svg" alt="" />
@@ -95,10 +93,15 @@
       </section>
     </main>
     <dialog id="exit-dialog" class="exit-dialog">
-      <p class="exit-dialog__text">Are you sure you want to quit <br> the game?</p>
-      <div class="exit-dialog__actions">
-        <button id="back-to-game" class="btn exit-dialog__button" type="button">Back to game</button>
-        <button id="exit-game" class="btn exit-dialog__button" type="button">Exit game</button>
+      <div class="exit-dialog__wrapper">
+        <p class="exit-dialog__text">
+          Are you sure you want to quit <br />
+          the game?
+        </p>
+        <div class="exit-dialog__actions">
+          <button id="back-to-game" class="btn exit-dialog__button exit-dialog__button--back" type="button">Back to game</button>
+          <button id="exit-game" class="btn exit-dialog__button exit-dialog__button--exit" type="button">Exit game</button>
+        </div>
       </div>
     </dialog>
   </body>

@@ -1,0 +1,113 @@
+@use '../abstract/variables' as var;
+@use '../abstract/functions' as fct;
+@use '../abstract/mixin' as mx;
+
+.exit-dialog {
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  height: 270px;
+  width: 540px;
+  border: 0;
+  background-color: var.$color-light;
+
+  body:not([data-theme='code-vibes']) & {
+    border-radius: 20px;
+  }
+
+  [data-theme='da-projects'] & {
+    background-color: var.$color-da-dialog-bg;
+  }
+
+  [data-theme='food'] & {
+    background-color: var.$color-food-dialog-bg;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 40px;
+    height: 100%;
+    justify-content: space-between;
+  }
+
+  &__text {
+    font-size: 32px;
+    text-align: center;
+    font-weight: 700;
+
+    body:not([data-theme='code-vibes']) & {
+      font-size: 28px;
+      line-height: 40px;
+    }
+
+    [data-theme='da-projects'] & {
+      font-family: var.$font-da;
+    }
+
+    [data-theme='food'] & {
+      font-family: var.$font-food-text;
+      font-weight: 600;
+      color: var.$color-food-brown;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 24px;
+  }
+
+  &__button {
+    width: 180px;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    align-items: center;
+
+    body:not([data-theme='code-vibes']) & {
+      border-radius: 10px;
+    }
+
+    [data-theme='da-projects'] & {
+      box-shadow: 3px 3px 5px 0 var.$color-da-shadow;
+    }
+
+    [data-theme='food'] & {
+      border: 3px solid var.$color-food-orange-border;
+    }
+
+    &--back {
+      [data-theme='code-vibes'] & {
+        color: var.$color-light;
+        background-color: var.$color-cv-turquoise;
+      }
+
+      [data-theme='da-projects'] & {
+        color: var.$color-da-blue-text;
+        background-color: var.$color-da-blue-light;
+      }
+
+      [data-theme='food'] & {
+        background-color: var.$color-food-orange;
+      }
+    }
+
+    &--exit {
+      [data-theme='code-vibes'] & {
+        color: var.$color-cv-turquoise;
+        background-color: var.$color-cv-turquoise-light;
+      }
+
+      [data-theme='da-projects'] & {
+        background-color: var.$color-da-red;
+      }
+
+      [data-theme='food'] & {
+        background-color: var.$color-food-cream;
+      }
+    }
+  }
+}
