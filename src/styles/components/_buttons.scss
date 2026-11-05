@@ -35,4 +35,28 @@
     padding: 12px 24px;
     font-size: fct.px-to-rem(20);
   }
+
+  &--exit {
+    [data-theme='code-vibes'] & {
+      justify-content: center;
+      width: 200px;
+      height: 60px;
+      font-size: fct.px-to-rem(24);
+      color: var.$color-light;
+      background-color: var.$color-cv-score-bg;
+      border: 1px solid transparent;
+
+      &:hover {
+        border-color: var.$color-cv-turquoise-border;
+      }
+    }
+
+    [data-theme='food'] & {
+      border: 3px solid transparent;
+
+      &:hover {
+        border-color: var.$color-food-orange-border;
+      }
+    }
+  }
 }

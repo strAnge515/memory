@@ -11,6 +11,10 @@
   border: 0;
   background-color: var.$color-light;
 
+  &[open] {
+    animation: fade-in 300ms ease-out;
+  }
+
   body:not([data-theme='code-vibes']) & {
     border-radius: 20px;
   }
@@ -109,5 +113,15 @@
         background-color: var.$color-food-cream;
       }
     }
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }
