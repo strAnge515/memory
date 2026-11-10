@@ -1,7 +1,8 @@
 import './styles/main.scss';
-import { getCardTemplate } from './templates';
+import { getCardTemplate, getDrawTemplate, getWinnerTemplate } from './templates';
 
 type PlayColor = 'orange' | 'blue';
+type Winner = PlayColor | 'draw';
 
 interface Settings {
   theme: string;
@@ -34,6 +35,7 @@ const gameState: GameState = {
 const FLIP_BACK_DELAY_MS: number = 1000;
 const CARDS_PER_PAIR: number = 2;
 const SETTINGS_COUNT: number = 3;
+const GAME_OVER_DELAY_MS: number = 2500;
 
 const flippedCards: HTMLElement[] = [];
 
@@ -45,6 +47,7 @@ function init(): void {
   initSettingsForm();
   initBoard();
   initDialogButtons();
+  initBackToStartButton();
 }
 
 /** Opens the settings view when the play button is clicked. */
@@ -74,7 +77,7 @@ function initSettingsForm(): void {
 function handleSettingChange(event: Event): void {
   const field = event.target as HTMLInputElement;
   settings[field.name as keyof Settings] = field.value;
-  updateGameBar(field.name, field.value);
+  updateGameBar(field.name);
   enableGameButton();
   if (field.name === 'theme') {
     changeThemePicture(field.value);
@@ -88,12 +91,11 @@ function handleSettingsSubmit(event: Event): void {
   startGame();
 }
 
-/** Shows the chosen value in the game bar and marks it as selected. */
-function updateGameBar(name: string, value: string): void {
+/** Marks the chosen setting as selected in the game bar. */
+function updateGameBar(name: string): void {
   const chosenSpan = document.querySelector(`[data-group="${name}"]`);
 
   if (chosenSpan) {
-    chosenSpan.textContent = value;
     chosenSpan.classList.add('is-selected');
   }
 }
@@ -198,6 +200,7 @@ function checkForMatch(): void {
   if (isSame) {
     flippedCards.length = 0;
     addPoint();
+    checkGameEnd();
   } else {
     setTimeout(flipCardsBack, FLIP_BACK_DELAY_MS);
     switchPlayer();
@@ -217,6 +220,7 @@ function resetGameState(): void {
   gameState.currentPlayer = settings.player as PlayColor;
   gameState.playerScores.orange = 0;
   gameState.playerScores.blue = 0;
+  flippedCards.length = 0;
 }
 
 /** Shows both scores and the current player above the board. */
@@ -277,6 +281,55 @@ function closeExitDialog(): void {
 /** Closes the exit dialog and returns to the settings view. */
 function handleExitGame(): void {
   closeExitDialog();
+  removeGameTheme();
+  showView('settings');
+}
+
+/** Shows the game over screen once the last pair is found. */
+function checkGameEnd(): void {
+  if (isGameOver()) {
+    setTimeout(showGameOver, FLIP_BACK_DELAY_MS);
+  }
+}
+
+/** Shows the final score and then the winner after a short delay. */
+function showGameOver(): void {
+  const finalScoreOrange = document.getElementById('final-score-orange') as HTMLElement;
+  const finalScoreBlue = document.getElementById('final-score-blue') as HTMLElement;
+
+  finalScoreOrange.textContent = String(gameState.playerScores.orange);
+  finalScoreBlue.textContent = String(gameState.playerScores.blue);
+  showView('game-over');
+  setTimeout(showWinner, GAME_OVER_DELAY_MS);
+}
+
+/** Returns the player with the most points or 'draw' if both are equal. */
+function getWinner(): Winner {
+  const { orange, blue } = gameState.playerScores;
+  if (orange === blue) {
+    return 'draw';
+  }
+  return orange > blue ? 'orange' : 'blue';
+}
+
+/** Renders the winner or the draw and shows the winner screen. */
+function showWinner(): void {
+  const winnerResult = document.getElementById('winner-result') as HTMLElement;
+  const winner = getWinner();
+  const isDraw = winner === 'draw';
+
+  winnerResult.innerHTML = isDraw ? getDrawTemplate() : getWinnerTemplate(winner);
+  showView('winner');
+}
+
+/** Registers the click listener of the back to start button. */
+function initBackToStartButton(): void {
+  const backToStartButton = document.getElementById('back-to-start');
+  backToStartButton?.addEventListener('click', handleBackToStart);
+}
+
+/** Leaves the winner screen and opens the settings for a new round. */
+function handleBackToStart(): void {
   removeGameTheme();
   showView('settings');
 }

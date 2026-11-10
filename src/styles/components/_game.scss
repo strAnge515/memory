@@ -23,11 +23,13 @@
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-    margin-bottom: 54px;
-    height: 100px;
+    max-width: 1219px;
+    margin: 0 auto 54px;
+    padding: 28px 24px;
 
     [data-theme='code-vibes'] & {
       height: 62px;
+      padding: 0;
     }
 
     [data-theme='da-projects'] & {
@@ -44,11 +46,13 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
-    width: 312px;
-    height: 60px;
+    padding: 17px 20px;
     background-color: var.$color-cv-score-bg;
 
     body:not([data-theme='code-vibes']) & {
+      gap: 40px;
+      height: 54px;
+      padding: 0 16px;
       border-radius: 10px;
       background-color: var.$color-light;
     }
@@ -60,6 +64,14 @@
     gap: 8px;
     font-size: fct.px-to-rem(20);
     font-weight: 700;
+
+    &::before {
+      content: '';
+      width: 32px;
+      height: 32px;
+      background-color: currentColor;
+      mask: url('/img/icons/chess_pawn.svg') no-repeat center / contain;
+    }
 
     &--blue {
       color: var.$color-player-blue-dark;
@@ -74,16 +86,10 @@
       font-size: fct.px-to-rem(24);
       line-height: 100%;
 
-      img {
-        display: none;
-      }
-
       &::before {
-        content: '';
         width: 29px;
         height: 24px;
-        background-color: currentColor;
-        mask: url('/img/icons/label.svg') no-repeat center / contain;
+        mask-image: url('/img/icons/label.svg');
       }
     }
 
@@ -93,6 +99,12 @@
 
     [data-theme='code-vibes'] &--orange {
       color: var.$color-player-orange;
+    }
+  }
+
+  &__score-name {
+    body:not([data-theme='code-vibes']) & {
+      display: none;
     }
   }
 

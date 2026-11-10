@@ -28,23 +28,38 @@
         <form class="settings__form" id="settings-form">
           <div class="settings__options">
             <fieldset class="settings__group">
-              <legend>Game themes</legend>
-              <label><input type="radio" name="theme" value="code-vibes" /> Code vibes theme</label>
-              <label><input type="radio" name="theme" value="da-projects" /> DA Projects theme</label>
-              <label><input type="radio" name="theme" value="food" /> Foods theme</label>
+              <legend>
+                <img src="/img/icons/palette.svg" alt="" />
+                <span>Game themes</span>
+              </legend>
+              <div class="settings__choices">
+                <label><input type="radio" name="theme" value="code-vibes" /> Code vibes theme</label>
+                <label><input type="radio" name="theme" value="da-projects" /> DA Projects theme</label>
+                <label><input type="radio" name="theme" value="food" /> Foods theme</label>
+              </div>
             </fieldset>
 
             <fieldset class="settings__group">
-              <legend>Choose player</legend>
-              <label><input type="radio" name="player" value="blue" /> Blue</label>
-              <label><input type="radio" name="player" value="orange" /> Orange</label>
+              <legend>
+                <img src="/img/icons/chess_pawn.svg" alt="" />
+                <span>Choose player</span>
+              </legend>
+              <div class="settings__choices">
+                <label><input type="radio" name="player" value="blue" /> Blue</label>
+                <label><input type="radio" name="player" value="orange" /> Orange</label>
+              </div>
             </fieldset>
 
             <fieldset class="settings__group">
-              <legend>Board size</legend>
-              <label><input type="radio" name="size" value="4x4" /> 16 cards</label>
-              <label><input type="radio" name="size" value="4x6" /> 24 cards</label>
-              <label><input type="radio" name="size" value="6x6" /> 36 cards</label>
+              <legend>
+                <img src="/img/icons/style.svg" alt="" />
+                <span>Board size</span>
+              </legend>
+              <div class="settings__choices">
+                <label><input type="radio" name="size" value="4x4" /> 16 cards</label>
+                <label><input type="radio" name="size" value="4x6" /> 24 cards</label>
+                <label><input type="radio" name="size" value="6x6" /> 36 cards</label>
+              </div>
             </fieldset>
           </div>
 
@@ -54,7 +69,7 @@
             </div>
 
             <div class="settings__summary">
-              <span class="settings__chosen" data-group="theme">Theme</span>
+              <span class="settings__chosen" data-group="theme">Game theme</span>
               <span class="settings__chosen" data-group="player">Player</span>
               <span class="settings__chosen" data-group="size">Board size</span>
               <button id="game-start-button" class="btn btn--start" type="submit" disabled>
@@ -71,12 +86,12 @@
           <header class="game__header">
             <div class="game__scores">
               <span class="game__score game__score--blue">
-                <img src="/img/icons/chess_pawn.svg" alt="" />
-                Blue <span id="score-blue">0</span>
+                <span class="game__score-name">Blue</span>
+                <span id="score-blue">0</span>
               </span>
               <span class="game__score game__score--orange">
-                <img src="/img/icons/chess_pawn.svg" alt="" />
-                Orange <span id="score-orange">0</span>
+                <span class="game__score-name">Orange</span>
+                <span id="score-orange">0</span>
               </span>
             </div>
 
@@ -90,6 +105,24 @@
 
           <div id="game-board" class="game__board"></div>
         </div>
+      </section>
+
+      <section id="game-over" class="result is-hidden">
+        <h1 class="result__title result__title--game-over">Game over</h1>
+        <p class="result__label result__label--small">Final score</p>
+        <div class="result__scores">
+          <p class="result__score result__score--blue">Blue <span id="final-score-blue">0</span></p>
+          <p class="result__score result__score--orange">Orange <span id="final-score-orange">0</span></p>
+        </div>
+      </section>
+
+      <section id="winner" class="result result--winner is-hidden">
+        <picture class="result__confetti">
+          <source media="(min-width: 1440px)" srcset="/img/icons/Confetti_long.svg" />
+          <img src="/img/icons/Confetti.svg" alt="" />
+        </picture>
+        <div id="winner-result" class="result__winner"></div>
+        <button id="back-to-start" class="btn result__button" type="button">Back to start</button>
       </section>
     </main>
     <dialog id="exit-dialog" class="exit-dialog">

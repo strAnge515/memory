@@ -11,3 +11,21 @@ export function getCardTemplate(theme: string, cardId: number): string {
     </button>
   `;
 }
+
+/** Returns the HTML of the winner with pawn and player name. */
+export function getWinnerTemplate(winner: string): string {
+  return `
+    <p class="result__label">The winner is</p>
+    <span class="result__pawn" data-player="${winner}" role="img" aria-label="${winner} pawn"></span>
+    <h1 class="result__title result__title--${winner}">${winner} player</h1>
+  `;
+}
+
+/** Returns the HTML of a draw with the scale icon. */
+export function getDrawTemplate(): string {
+  return `
+    <p class="result__label">It's a</p>
+    <h1 class="result__title result__title--draw">Draw</h1>
+    <span class="result__scale" role="img" aria-label="Scale"></span>
+  `;
+}

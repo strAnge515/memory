@@ -3,17 +3,42 @@
 @use '../abstract/mixin' as mx;
 
 .settings {
-  max-width: 1200px;
+  max-width: calc(1103px + 2 * 24px);
   margin: 0 auto;
   padding: 48px 24px;
 
   &__title {
-    margin-bottom: 32px;
+    position: relative;
+    width: fit-content;
+    margin-bottom: 62px;
+    padding: 0 8px 8px 16px;
     font-size: fct.px-to-rem(48);
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 6px;
+      right: 0;
+      bottom: 0;
+      height: 3px;
+      background-color: var.$color-yellow;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 12px;
+      height: 12px;
+      background-color: var.$color-yellow;
+      transform: rotate(45deg);
+    }
   }
 
   &__form {
     display: flex;
+    justify-content: space-between;
     gap: 48px;
 
     @include mx.respond-below(medium) {
@@ -24,7 +49,7 @@
   &__options {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 54px;
   }
 
   &__group {
@@ -33,33 +58,85 @@
     gap: 8px;
 
     legend {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 32px;
       margin-bottom: 8px;
-      font-size: fct.px-to-rem(20);
+      font-size: fct.px-to-rem(24);
       font-weight: 700;
+
+      img {
+        width: 24px;
+        height: 24px;
+      }
     }
 
     label {
       display: flex;
       align-items: center;
       gap: 8px;
+      height: 24px;
+      font-size: fct.px-to-rem(20);
+      font-weight: 400;
+      line-height: 100%;
       cursor: pointer;
+
+      input[type='radio'] {
+        appearance: none;
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        margin: 2px;
+        border: 2px solid var.$color-dark;
+        border-radius: 50%;
+        cursor: pointer;
+
+        &:checked {
+          background: radial-gradient(circle, var.$color-dark 0 4px, transparent 4.5px);
+        }
+      }
+
+      &:has(input:checked) {
+        font-weight: 700;
+
+        &::after {
+          content: '';
+          width: 40px;
+          height: 12px;
+          background: url('/img/icons/selected-line.svg') no-repeat center / contain;
+        }
+      }
     }
+  }
+
+  &__choices {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-left: 44px;
   }
 
   &__preview {
     display: flex;
-    flex: 1;
     flex-direction: column;
-    gap: 24px;
+    align-items: flex-end;
+    gap: 45px;
   }
 
   &__preview-img {
-    aspect-ratio: 4 / 3;
-    background-color: var.$color-grey-light;
+    background-color: var.$color-light;
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
   }
 
   &__summary {
     display: flex;
+    width: fit-content;
     flex-wrap: wrap;
     align-items: center;
     gap: 16px;
