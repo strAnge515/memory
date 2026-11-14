@@ -43,7 +43,7 @@ init();
 
 /** Initializes the app and registers all event listeners. */
 function init(): void {
-  initPlaybutton();
+  initPlayButton();
   initSettingsForm();
   initBoard();
   initDialogButtons();
@@ -51,7 +51,7 @@ function init(): void {
 }
 
 /** Opens the settings view when the play button is clicked. */
-function initPlaybutton(): void {
+function initPlayButton(): void {
   const playButton = document.getElementById('play-button');
   if (playButton) {
     playButton.addEventListener('click', () => showView('settings'));

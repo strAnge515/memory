@@ -27,3 +27,9 @@
     @content;
   }
 }
+
+@mixin respond-above($size) {
+  @media screen and (min-width: map.get(var.$breakpoints, $size)) {
+    @content;
+  }
+}

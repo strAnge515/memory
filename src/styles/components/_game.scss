@@ -12,7 +12,7 @@
   }
 
   &__content {
-    max-width: 1440px;
+    max-width: var.$content-max-width;
     margin: 0 auto;
     padding: 48px 24px;
   }

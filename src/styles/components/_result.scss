@@ -314,6 +314,11 @@
     right: 103px;
     left: 103px;
 
+    @include mx.respond-above(widescreen) {
+      right: 0;
+      left: 0;
+    }
+
     img {
       width: 100%;
     }
