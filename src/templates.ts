@@ -15,9 +15,9 @@ export function getCardTemplate(theme: string, cardId: number): string {
 /** Returns the HTML of the winner with pawn and player name. */
 export function getWinnerTemplate(winner: string): string {
   return `
-    <p class="result__label">The winner is</p>
-    <span class="result__pawn" data-player="${winner}" role="img" aria-label="${winner} pawn"></span>
+    <p class="result__label result__label--winner">The winner is</p>
     <h1 class="result__title result__title--${winner}">${winner} player</h1>
+    <span class="result__pawn" data-player="${winner}" role="img" aria-label="${winner} pawn"></span>
   `;
 }
 

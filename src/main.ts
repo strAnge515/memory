@@ -319,7 +319,14 @@ function showWinner(): void {
   const isDraw = winner === 'draw';
 
   winnerResult.innerHTML = isDraw ? getDrawTemplate() : getWinnerTemplate(winner);
+  updateBackToStartText();
   showView('winner');
+}
+
+/** Sets the button text: "Back to start" for code-vibes, "Home" for all other themes. */
+function updateBackToStartText(): void {
+  const backToStartButton = document.getElementById('back-to-start') as HTMLElement;
+  backToStartButton.textContent = settings.theme === 'code-vibes' ? 'Back to start' : 'Home';
 }
 
 /** Registers the click listener of the back to start button. */

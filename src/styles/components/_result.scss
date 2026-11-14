@@ -17,13 +17,20 @@
   }
 
   [data-theme='da-projects'] & {
-    color: var.$color-da-blue-text;
-    background-color: var.$color-da-dialog-bg;
+    color: var.$color-light;
+    background-color: var.$color-da-blue-text;
   }
 
   [data-theme='food'] & {
-    color: var.$color-food-brown;
-    background-color: var.$color-food-cream;
+    color: var.$color-food-orange-border;
+    background-color: var.$color-food-dialog-bg;
+  }
+
+  &--game-over {
+    [data-theme='food'] & {
+      color: var.$color-food-cream;
+      background-color: var.$color-food-orange-border;
+    }
   }
 
   &__title {
@@ -41,6 +48,20 @@
       color: var.$color-player-orange;
     }
 
+    [data-theme='da-projects'] & {
+      font-family: var.$font-da;
+      text-transform: capitalize;
+      color: var.$color-light;
+    }
+
+    [data-theme='food'] & {
+      font-family: var.$font-food-text;
+      font-size: fct.px-to-rem(80);
+      font-weight: 600;
+      text-transform: capitalize;
+      color: var.$color-food-brown;
+    }
+
     &--game-over {
       margin-bottom: 120px;
       font-size: fct.px-to-rem(150);
@@ -49,6 +70,18 @@
       [data-theme='code-vibes'] & {
         color: var.$color-cv-turquoise-border;
         text-shadow: -7px 0 8px rgba(var.$color-cv-turquoise-border, 0.5);
+      }
+
+      [data-theme='da-projects'] & {
+        font-weight: 800;
+        text-transform: uppercase;
+        color: var.$color-da-red-strong;
+      }
+
+      [data-theme='food'] & {
+        font-size: fct.px-to-rem(150);
+        text-transform: uppercase;
+        color: var.$color-light;
       }
     }
 
@@ -60,6 +93,20 @@
         color: var.$color-cv-turquoise-border;
         text-shadow: -7px 0 8px rgba(var.$color-cv-turquoise-border, 0.5);
       }
+
+      [data-theme='da-projects'] & {
+        font-weight: 800;
+        line-height: 100%;
+        text-transform: uppercase;
+        color: var.$color-da-red-strong;
+      }
+
+      [data-theme='food'] & {
+        font-size: fct.px-to-rem(128);
+        line-height: 100%;
+        text-transform: uppercase;
+        color: var.$color-food-orange-border;
+      }
     }
   }
 
@@ -69,9 +116,23 @@
     font-weight: 400;
     line-height: 100%;
 
+    [data-theme='da-projects'] & {
+      font-family: var.$font-da;
+    }
+
+    [data-theme='food'] & {
+      font-family: var.$font-food-text;
+    }
+
     &--small {
       margin-bottom: 8px;
       font-size: fct.px-to-rem(24);
+    }
+
+    &--winner {
+      [data-theme='food'] & {
+        color: var.$color-food-brown;
+      }
     }
   }
 
@@ -82,6 +143,13 @@
 
     [data-theme='code-vibes'] & {
       background-color: var.$color-cv-score-bg;
+    }
+
+    body:not([data-theme='code-vibes']) & {
+      gap: 40px;
+      padding: 11px 16px;
+      border-radius: 10px;
+      background-color: var.$color-light;
     }
   }
 
@@ -109,12 +177,33 @@
     &--orange {
       color: var.$color-player-orange;
     }
+
+    body:not([data-theme='code-vibes']) & {
+      &::before {
+        width: 32px;
+        height: 32px;
+        mask-image: url('/img/icons/chess_pawn.svg');
+      }
+    }
+
+    body:not([data-theme='code-vibes']) &--blue {
+      color: var.$color-player-blue-dark;
+    }
+
+    body:not([data-theme='code-vibes']) &--orange {
+      color: var.$color-player-orange-dark;
+    }
+  }
+
+  &__score-name {
+    body:not([data-theme='code-vibes']) & {
+      display: none;
+    }
   }
 
   &__winner {
     @include mx.flex-center;
     gap: 10px;
-    width: 522px;
     max-width: 100%;
   }
 
@@ -127,6 +216,41 @@
 
     &[data-player='orange'] {
       background-color: var.$color-player-orange;
+    }
+
+    body:not([data-theme='code-vibes']) & {
+      mask: none;
+
+      &::before {
+        content: '';
+        background-color: var.$color-player-blue-dark;
+        mask: url('/img/icons/chess_pawn.svg') no-repeat center / contain;
+      }
+
+      &[data-player='orange']::before {
+        background-color: var.$color-player-orange;
+      }
+    }
+
+    [data-theme='da-projects'] & {
+      @include mx.outline(var.$color-light, 3px);
+      background-color: transparent;
+
+      &::before {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    [data-theme='food'] & {
+      @include mx.food-icon-box(260px, 298px);
+      height: auto;
+
+      &::before {
+        width: 200px;
+        height: 250px;
+      }
     }
   }
 
@@ -141,18 +265,54 @@
     [data-theme='code-vibes'] & {
       background-color: var.$color-cv-turquoise-border;
     }
+
+    body:not([data-theme='code-vibes']) & {
+      mask: none;
+
+      &::before {
+        content: '';
+        mask: url('/img/icons/Scale_Icon.svg') no-repeat center / contain;
+      }
+    }
+
+    [data-theme='da-projects'] & {
+      @include mx.outline(var.$color-light, 3px);
+      background-color: transparent;
+      width: 339px;
+      aspect-ratio: 339 / 272;
+
+      &::before {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: var.$color-da-red-strong;
+      }
+    }
+
+    [data-theme='food'] & {
+      @include mx.food-icon-box(312px, 285px);
+
+      &::before {
+        width: 263px;
+        height: 211px;
+        background-color: var.$color-food-orange-border;
+      }
+    }
   }
 
   &--winner {
+    position: relative;
     justify-content: flex-start;
     gap: 0;
-    padding: 0 0 48px;
+    padding: 222px 0 48px;
     overflow: hidden;
   }
 
   &__confetti {
-    align-self: stretch;
-    margin: -32px 103px 0;
+    position: absolute;
+    top: -32px;
+    right: 103px;
+    left: 103px;
 
     img {
       width: 100%;
@@ -173,6 +333,25 @@
       font-size: fct.px-to-rem(24);
       color: var.$color-light;
       background-color: var.$color-cv-score-bg;
+    }
+
+    [data-theme='da-projects'] & {
+      gap: 10px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-family: var.$font-da;
+      color: var.$color-da-blue-text;
+      background-color: var.$color-da-blue-light;
+    }
+
+    [data-theme='food'] & {
+      gap: 10px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-family: var.$font-food-heading;
+      color: var.$color-light;
+      background-color: var.$color-food-orange-border;
+      box-shadow: 3px 3px 5px rgba(#000000, 0.2);
     }
   }
 }

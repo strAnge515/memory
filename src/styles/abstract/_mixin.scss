@@ -1,4 +1,5 @@
 @use 'sass:map';
+@use 'sass:math';
 @use './variables' as var;
 
 @mixin flex-center($flex-direction: column) {
@@ -6,6 +7,19 @@
   align-items: center;
   justify-content: center;
   flex-direction: $flex-direction;
+}
+
+@mixin outline($color, $size) {
+  filter: drop-shadow($size 0 0 $color) drop-shadow(-$size 0 0 $color) drop-shadow(0 $size 0 $color)
+    drop-shadow(0 (-$size) 0 $color);
+}
+
+@mixin food-icon-box($width, $height) {
+  @include flex-center(row);
+  width: $width;
+  aspect-ratio: math.div($width, $height);
+  background-color: var.$color-food-box-bg;
+  box-shadow: 3px 3px 6px rgba(#000000, 0.25);
 }
 
 @mixin respond-below($size) {
