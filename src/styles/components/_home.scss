@@ -44,10 +44,6 @@
     rotate: 35deg;
     pointer-events: none;
     animation: float 3s ease-in-out infinite;
-
-    @include mx.respond-above(widescreen) {
-      left: calc((100% - var.$content-max-width) / 2 - 30px);
-    }
   }
 }
 

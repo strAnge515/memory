@@ -26,9 +26,24 @@
     }
   }
 
+  &__icon,
+  &__arrow {
+    transition:
+      rotate 300ms ease-in-out,
+      scale 300ms ease-in-out;
+  }
+
   &--play {
     padding: 16px 32px;
     font-size: fct.px-to-rem(32);
+
+    &:hover .btn__icon {
+      rotate: -35deg;
+    }
+
+    &:hover .btn__arrow {
+      scale: 1.2;
+    }
   }
 
   &--start {
@@ -49,6 +64,15 @@
         width: 30px;
         height: 30px;
       }
+
+      transition: box-shadow 300ms ease-in-out;
+
+      &:hover:not(:disabled) {
+        transform: none;
+        box-shadow:
+          inset 0 0 0 2px var.$color-cv-turquoise-border,
+          3px 3px 6px rgba(var.$color-yellow, 0.3);
+      }
     }
 
     [data-theme='da-projects'] & {
@@ -57,6 +81,17 @@
       border-radius: 10px;
       color: var.$color-da-blue-text;
       background-color: var.$color-da-blue-light;
+      transition:
+        color 300ms,
+        background-color 300ms,
+        box-shadow 300ms;
+
+      &:hover:not(:disabled) {
+        transform: none;
+        color: var.$color-light;
+        background-color: var.$color-da-blue-text;
+        box-shadow: 3px 3px 5px var.$color-da-shadow;
+      }
 
       img {
         display: none;
@@ -76,8 +111,18 @@
       padding: 12px 20px;
       border: 3px solid var.$color-food-orange-border;
       border-radius: 10px;
+      font-family: var.$font-food-heading;
+      font-size: fct.px-to-rem(16);
+      line-height: 100%;
       color: var.$color-food-orange-border;
       background-color: var.$color-food-cream;
+
+      &:hover:not(:disabled) {
+        transform: none;
+        color: var.$color-food-cream;
+        background-color: var.$color-food-orange-border;
+        box-shadow: 3px 3px 5px rgba(#000000, 0.2);
+      }
 
       img {
         display: none;
@@ -85,8 +130,8 @@
 
       &::before {
         content: '';
-        width: 16px;
-        height: 16px;
+        width: 24px;
+        height: 24px;
         background-color: currentColor;
         mask: url('/img/icons/exit.svg') no-repeat center / contain;
       }

@@ -160,5 +160,10 @@
       grid-template-columns: repeat(6, minmax(0, 120px));
       gap: 6px;
     }
+
+    [data-theme='da-projects'] &,
+    [data-theme='food'] & {
+      gap: 10px;
+    }
   }
 }

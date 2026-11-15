@@ -10,6 +10,37 @@
   text-align: center;
   color: var.$color-dark;
   background-color: var.$color-light;
+  animation: result-fade-in 400ms ease-out;
+
+  &__title,
+  &__label,
+  &__scores,
+  &__pawn,
+  &__scale,
+  &__button {
+    animation: result-fade-up 600ms ease-out both;
+  }
+
+  &__title {
+    animation-delay: 150ms;
+  }
+
+  &__scores,
+  &__pawn,
+  &__scale {
+    animation-delay: 300ms;
+  }
+
+  &__button {
+    animation-delay: 450ms;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &,
+    * {
+      animation: none !important;
+    }
+  }
 
   [data-theme='code-vibes'] & {
     color: var.$color-light;
@@ -338,6 +369,14 @@
       font-size: fct.px-to-rem(24);
       color: var.$color-light;
       background-color: var.$color-cv-score-bg;
+      transition: box-shadow 300ms;
+
+      &:hover:not(:disabled) {
+        transform: none;
+        box-shadow:
+          inset 0 0 0 2px var.$color-cv-turquoise-border,
+          3px 3px 6px rgba(var.$color-yellow, 0.3);
+      }
     }
 
     [data-theme='da-projects'] & {
@@ -347,16 +386,54 @@
       font-family: var.$font-da;
       color: var.$color-da-blue-text;
       background-color: var.$color-da-blue-light;
+      transition:
+        color 300ms,
+        background-color 300ms,
+        box-shadow 300ms;
+
+      &:hover:not(:disabled) {
+        transform: none;
+        color: var.$color-light;
+        background-color: var.$color-da-blue-text;
+        box-shadow: 3px 3px 5px var.$color-da-shadow;
+      }
     }
 
     [data-theme='food'] & {
       gap: 10px;
       padding: 12px 20px;
+      border: 3px solid var.$color-food-orange-border;
       border-radius: 10px;
       font-family: var.$font-food-heading;
       color: var.$color-light;
       background-color: var.$color-food-orange-border;
       box-shadow: 3px 3px 5px rgba(#000000, 0.2);
+
+      &:hover:not(:disabled) {
+        transform: none;
+        color: var.$color-food-orange-border;
+        background-color: var.$color-food-cream;
+      }
     }
+  }
+}
+
+@keyframes result-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes result-fade-up {
+  from {
+    opacity: 0;
+    translate: 0 20px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
   }
 }
